@@ -78,3 +78,30 @@ Similarly by type:
     expected = [ { key: 'apple', values: 3 }, { key: 'grape', values: 7 } ]
     isEqual totals, expected, 'total by type'
 
+
+## Comparison with `groupBy` and `countBy`
+
+The following demonstrates `nest` equivalents for underscore's `groupBy` and
+`countBy`.
+
+    _ = require 'underscore'
+    isEqual = assert.deepEqual
+
+    data = [1.3, 2.1, 2.4]
+    result = nest().key(Math.floor).map(data)
+    isEqual result, _.groupBy(data, (x) -> Math.floor x)
+
+    data = ["one", "two", "three"]
+    result = nest().key((d) -> d.length).map(data)
+    isEqual result, _.groupBy(data, 'length')
+
+    data = [1..10]
+    type = (x) -> if x % 2 is 0 then "even" else "odd"
+    result = nest()
+      .key(type)
+      .rollup((values) -> values.length)
+      .map(data)
+    isEqual result, _.countBy(data, type)
+
+Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
+
