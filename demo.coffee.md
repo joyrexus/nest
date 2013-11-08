@@ -89,23 +89,44 @@ The following demonstrates `nest` equivalents for underscore's [groupBy](http://
 <!-- -->
 
     data = [1.3, 2.1, 2.4]
+
     result = nest().key(Math.floor).map(data)
+
+    expected = 
+      1: [ 1.3 ]
+      2: [ 2.1, 2.4 ]
+
+    isEqual result, expected
+
     isEqual result, _.groupBy(data, (x) -> Math.floor x)
 
 <!-- -->
 
     data = ["one", "two", "three"]
+
     result = nest().key((d) -> d.length).map(data)
+
+    expected = 
+      3: [ 'one', 'two' ]
+      5: [ 'three' ]
+
+    isEqual result, expected
+
     isEqual result, _.groupBy(data, 'length')
 
 <!-- -->
 
     data = [1..10]
     type = (x) -> if x % 2 is 0 then "even" else "odd"
+
     result = nest()
       .key(type)
       .rollup((values) -> values.length)
       .map(data)
+
+    isEqual result, { odd: 5, even: 5 }
+
     isEqual result, _.countBy(data, type)
+
 
 Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
