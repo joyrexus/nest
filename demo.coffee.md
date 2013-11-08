@@ -205,13 +205,10 @@ With a little work we can handle this with `groupBy` too:
 
     isEqual result, groupBy(data, ['color', 'quantity'])
 
+
 ## More rollups
 
-Suppose the values we wish to rollup are arrays, such as an array of daily
-items picked. Let's say that for our rollup, then, we want to sum the
-*corresponding* values in the array of daily picks for each entry in our final
-grouping of entries (say, by color). That is, we want an array of daily pick
-totals for our particular grouping.
+Inspired by [this question](http://stackoverflow.com/questions/13379912/javascript-summing-arrays-using-d3-nest), suppose the values we wish to rollup are arrays, such as an array of daily items picked. Let's say that for our rollup, then, we want to sum the *corresponding* values in the array of daily picks for each entry in our final grouping of entries (say, by color). That is, we want an array of daily pick totals for our particular grouping.
 
     harvest = [
       { type: "apple", color: "green", picked: [1, 2, 3, 4, 5] }, 
