@@ -12,6 +12,11 @@ See [demo](demo.coffee.md).
 
 * [Summing Arrays?](http://stackoverflow.com/questions/13379912/javascript-summing-arrays-using-d3-nest)
 
+
+## To do
+
+Explore overlap and use with crossfilter.
+
 * [Crossfilter API](https://github.com/square/crossfilter/wiki/API-Reference)
 
   * [Examples](http://bl.ocks.org/phoebebright/raw/3822981/)

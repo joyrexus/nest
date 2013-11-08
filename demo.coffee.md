@@ -83,6 +83,8 @@ Similarly by type:
 
 The following demonstrates `nest` equivalents for underscore's [groupBy](http://underscorejs.org/#groupBy) and [countBy](http://underscorejs.org/#countBy)
 
+Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
+
     _ = require 'underscore'
     isEqual = assert.deepEqual
 
@@ -133,4 +135,3 @@ The following demonstrates `nest` equivalents for underscore's [groupBy](http://
     isEqual result, _.countBy(data, type)
 
 
-Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
