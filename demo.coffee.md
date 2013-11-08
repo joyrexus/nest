@@ -9,19 +9,19 @@ Suppose we have an array of records:
     data = [
       type: "apple"
       color: "green"
-      quantity: 1
+      quantity: 1000
      , 
       type: "apple"
       color: "red"
-      quantity: 2
+      quantity: 2000
      , 
       type: "grape"
       color: "green"
-      quantity: 3
+      quantity: 1000
      ,
       type: "grape"
       color: "red"
-      quantity: 4
+      quantity: 4000
     ]
 
 
@@ -29,22 +29,42 @@ Suppose we have an array of records:
   
 Let's group our entries by color:
 
-    groups = nest()
+    result = nest()
       .key((d) -> d.color)  # group entries by color
       .entries(data)
 
     expected = [
       key: 'green'
       values: 
-        [ { type: 'apple', color: 'green', quantity: 1 },
-          { type: 'grape', color: 'green', quantity: 3 } ]
+        [ { type: 'apple', color: 'green', quantity: 1000 },
+          { type: 'grape', color: 'green', quantity: 1000 } ]
      ,
       key: 'red'
       values: 
-        [ { type: 'apple', color: 'red', quantity: 2 },
-          { type: 'grape', color: 'red', quantity: 4 } ]
+        [ { type: 'apple', color: 'red', quantity: 2000 },
+          { type: 'grape', color: 'red', quantity: 4000 } ]
     ]
-    isEqual groups, expected, 'group by color'
+
+    isEqual result, expected, 'grouping by color'
+
+Let's group our entries by color and then by quantity ... and also have `nest` return an associative-array instead of an array of key-value pairs:
+
+    result = nest()
+      .key((d) -> d.color)    # group entries by color
+      .key((d) -> d.quantity) # group entries by quantity
+      .map(data)
+
+    expected =
+      green:
+        "1000": [ 
+          { type: 'apple', color: 'green', quantity: 1000 },
+          { type: 'grape', color: 'green', quantity: 1000 } 
+        ]
+      red:
+        "2000": [ {type: 'apple', color: 'red', quantity: 2000} ]
+        "4000": [ {type: 'grape', color: 'red', quantity: 4000} ]
+
+    isEqual result, expected, 'grouping by color then quantity'
 
 
 ## Rollups
@@ -65,7 +85,7 @@ Get totals by color:
       .rollup(total)          # sum entries by quantity
       .entries(data)
 
-    expected = [ { key: 'green', values: 4 }, { key: 'red', values: 6 } ]
+    expected = [ {key: 'green', values: 2000}, {key: 'red', values: 6000} ]
     isEqual totals, expected, 'total by color'
 
 Similarly by type:
@@ -75,7 +95,7 @@ Similarly by type:
       .rollup(total)          # sum entries by quantity
       .entries(data)
 
-    expected = [ { key: 'apple', values: 3 }, { key: 'grape', values: 7 } ]
+    expected = [ {key: 'apple', values: 3000}, {key: 'grape', values: 5000} ]
     isEqual totals, expected, 'total by type'
 
 
