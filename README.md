@@ -8,7 +8,7 @@ details. Note that both are [literate coffeescript](http://coffeescript.org/#lit
 
 * Integrate [examples](http://bl.ocks.org/phoebebright/raw/3176159/).
 
-* Demonstrate how to bundle all array methods with [smash](https://github.com/mbostock/smash/wiki)
+* Demonstrate how to bundle all of D3's array methods with [smash](https://github.com/mbostock/smash/wiki).
 
 * Explore overlap and use with crossfilter.
   * [API](https://github.com/square/crossfilter/wiki/API-Reference)
