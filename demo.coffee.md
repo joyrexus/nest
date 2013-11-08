@@ -58,7 +58,7 @@ Let's define an aggregator function for a [rollup](https://github.com/mbostock/d
 
     total = (d) -> sum(d, (x) -> x.quantity)
 
-So we can now get totals by color:
+Get totals by color:
 
     totals = nest()
       .key((d) -> d.color)    # group by color
@@ -81,19 +81,24 @@ Similarly by type:
 
 ## Comparison with `groupBy` and `countBy`
 
-The following demonstrates `nest` equivalents for underscore's `groupBy` and
-`countBy`.
+The following demonstrates `nest` equivalents for underscore's [groupBy](http://underscorejs.org/#groupBy) and [countBy](http://underscorejs.org/#countBy)
 
     _ = require 'underscore'
     isEqual = assert.deepEqual
+
+<!-- -->
 
     data = [1.3, 2.1, 2.4]
     result = nest().key(Math.floor).map(data)
     isEqual result, _.groupBy(data, (x) -> Math.floor x)
 
+<!-- -->
+
     data = ["one", "two", "three"]
     result = nest().key((d) -> d.length).map(data)
     isEqual result, _.groupBy(data, 'length')
+
+<!-- -->
 
     data = [1..10]
     type = (x) -> if x % 2 is 0 then "even" else "odd"
@@ -104,4 +109,3 @@ The following demonstrates `nest` equivalents for underscore's `groupBy` and
     isEqual result, _.countBy(data, type)
 
 Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
-
