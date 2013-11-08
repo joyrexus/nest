@@ -94,7 +94,8 @@ This returns a nested array. Each element of the outer array is a key-values pai
 
     isEqual report, expected
 
-Note how `nest` supports more than one level of grouping, and can returns nested entries that preserve order.
+Note how `nest` supports more than one level of grouping and preserves the
+order of our entries.
 
 We can also have `nest` return an associative-array (where each entry
 correspondes to a distinct key value returned by the first key function) instead of an array of key-value pairs:
