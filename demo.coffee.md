@@ -90,7 +90,9 @@ The following demonstrates `nest` equivalents for underscore's [groupBy](http://
 
     data = [1.3, 2.1, 2.4]
 
-    result = nest().key(Math.floor).map(data)
+    result = nest()
+      .key(Math.floor)
+      .map(data)
 
     expected = 
       1: [ 1.3 ]
@@ -104,7 +106,9 @@ The following demonstrates `nest` equivalents for underscore's [groupBy](http://
 
     data = ["one", "two", "three"]
 
-    result = nest().key((d) -> d.length).map(data)
+    result = nest()
+      .key((d) -> d.length)
+      .map(data)
 
     expected = 
       3: [ 'one', 'two' ]
