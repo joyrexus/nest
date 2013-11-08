@@ -11,7 +11,6 @@ details. Note that both are [literate coffeescript](http://coffeescript.org/#lit
 * Demonstrate how to bundle all array methods with [smash](https://github.com/mbostock/smash/wiki)
 
 * Explore overlap and use with crossfilter.
-
   * [API](https://github.com/square/crossfilter/wiki/API-Reference)
   * [Examples](http://bl.ocks.org/phoebebright/raw/3822981/)
   * [Tutorial](http://eng.wealthfront.com/2012/09/explore-your-multivariate-data-with-crossfilter.html)

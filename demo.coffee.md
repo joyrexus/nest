@@ -232,3 +232,4 @@ Inspired by [this question](http://stackoverflow.com/questions/13379912/javascri
     ]
 
     isEqual result, expected
+
