@@ -103,7 +103,7 @@ Similarly by type:
 
 The following demonstrates `nest` equivalents for underscore's [groupBy](http://underscorejs.org/#groupBy) and [countBy](http://underscorejs.org/#countBy)
 
-Note that `nest` supports more than one level of grouping, and can also return nested entries that preserve order.
+Note that `nest` supports more than one level of grouping and can also return nested entries that preserve order.
 
     _ = require 'underscore'
     isEqual = assert.deepEqual
@@ -154,4 +154,54 @@ Note that `nest` supports more than one level of grouping, and can also return n
 
     isEqual result, _.countBy(data, type)
 
+<!-- -->
+
+Returning to the earlier example, let's group our entries by color and then by quantity ... and also have `nest` return an associative-array instead of an array of key-value pairs:
+
+    data = [
+      type: "apple"
+      color: "green"
+      quantity: 1000
+     , 
+      type: "apple"
+      color: "red"
+      quantity: 2000
+     , 
+      type: "grape"
+      color: "green"
+      quantity: 1000
+     ,
+      type: "grape"
+      color: "red"
+      quantity: 4000
+    ]
+
+    result = nest()
+      .key((d) -> d.color)    # group entries by color
+      .key((d) -> d.quantity) # group entries by quantity
+      .map(data)
+
+    expected =
+      green:
+        "1000": [ 
+          { type: 'apple', color: 'green', quantity: 1000 },
+          { type: 'grape', color: 'green', quantity: 1000 } 
+        ]
+      red:
+        "2000": [ {type: 'apple', color: 'red', quantity: 2000} ]
+        "4000": [ {type: 'grape', color: 'red', quantity: 4000} ]
+
+    isEqual result, expected
+
+With a little work we can handle this with `groupBy` too:
+
+    groupBy = (data, keys) ->
+      return data if not keys.length
+      [first, rest] = [ keys[0], keys.slice(1) ]
+      byFirst = _.groupBy data, first
+      for key of byFirst
+        byFirst[key] = groupBy byFirst[key], rest
+      byFirst
+
+    isEqual result, groupBy(data, ['color', 'quantity'])
 
