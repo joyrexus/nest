@@ -151,28 +151,28 @@ correspondes to a distinct key value returned by the first key function) instead
     isEqual report, expected
 
 
-# **nest**()
+### nest()
 
 Creates a new nest operator. The set of keys is initially empty. If the `map`
 or `entries` operator is invoked before any key functions are registered, the nest operator simply returns the input array.
 
-# nest.**key**(*function*)
+### nest.key(*function*)
 
 Registers a new key *function*. The key function will be invoked for each element in the input array, and must return a string identifier that is used to assign the element to its group. Most often, the function is implemented as a simple accessor, such as the year and variety accessors in the example above. Each time a key is registered, it is pushed onto the end of an internal keys array, and the resulting map or entries will have an additional hierarchy level. There is not currently a facility to remove or query the registered keys. The most-recently registered key is referred to as the current key in subsequent methods.
 
-# nest.**sortKeys**(*comparator*)
+### nest.sortKeys(*comparator*)
 
 Sorts key values for the current key using the specified *comparator*, such as `d3.descending`. If no comparator is specified for the current key, the order in which keys will be returned is undefined. Note that this only affects the result of the entries operator; the order of keys returned by the map operator is always undefined, regardless of comparator.
 
-# nest.**sortValues**(*comparator*)
+### nest.sortValues(*comparator*)
 
 Sorts leaf elements using the specified *comparator*, such as `d3.descending`. This is roughly equivalent to sorting the input array before applying the nest operator; however it is typically more efficient as the size of each group is smaller. If no value comparator is specified, elements will be returned in the order they appeared in the input array. This applies to both the map and entries operators.
 
-# nest.**rollup**(*function*)
+### nest.rollup(*function*)
 
 Specifies a rollup *function* to be applied on each group of leaf elements. The return value of the rollup function will replace the array of leaf values in either the associative array returned by the map operator, or the values attribute of each entry returned by the entries operator.
 
-# nest.**map**(*array*[, *mapType*])
+### nest.map(*array*[, *mapType*])
 
 Applies the nest operator to the specified *array*, returning an associative array. Each entry in the returned associative array corresponds to a distinct key value returned by the first key function. The entry value depends on the number of registered key functions: if there is an additional key, the value is another nested associative array; otherwise, the value is the array of elements filtered from the input *array* that have the given key value.
 
@@ -194,7 +194,7 @@ result = nest()
 Using `d3.map` rather than an object offers conveniences (e.g., the returned map
 has `keys` and `values` functions), and protects against unusual key names that conflict with built-in JavaScript properties, such as "__proto__".
 
-# nest.**entries**(*array*)
+### nest.entries(*array*)
 
 Applies the nest operator to the specified *array*, returning an array of
 key-values entries. Conceptually, this is similar to applying `d3.entries` to
