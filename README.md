@@ -3,12 +3,12 @@ Yes, you can use [D3](http://http://d3js.org)'s [Nest](https://github.com/mbosto
 See [demo](demo.coffee.md) for sample usage and [docs](docs.coffee.md) for
 details. Note that both are [literate coffeescript](http://coffeescript.org/#literate) files and can be run as is.
 
+For [smash](https://github.com/mbostock/smash/wiki)-style extraction-and-bundling of D3's nest operator, see [this block](http://bl.ocks.org/joyrexus/7393907).
+
 
 ## To do
 
 * Integrate [examples](http://bl.ocks.org/phoebebright/raw/3176159/).
-
-* Demonstrate how to bundle all of D3's array methods with [smash](https://github.com/mbostock/smash/wiki).
 
 * Explore overlap and use with crossfilter.
   * [API](https://github.com/square/crossfilter/wiki/API-Reference)
