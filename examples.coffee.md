@@ -6,7 +6,7 @@
     isEqual = assert.deepEqual
 
 [This clever block](http://bl.ocks.org/mbostock/4062085) uses nest to reshape a
-table of birthrate data, grouping \[male, female\] totals under year and birthyear:
+table of birthrate data, grouping \[male, female\] totals by year and birthyear:
 
     data = [ 
       { age: 90, sex: 'M', people: 8649, year: 1870 },
