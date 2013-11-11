@@ -69,34 +69,76 @@ Let's group our entries by color and then by quantity ... and also have `nest` r
 
 ## Rollups
 
-Let's define an aggregator function for a [rollup](https://github.com/mbostock/d3/wiki/Arrays#wiki-nest_rollup).  Here the `total` method sums up the `quantity` attribute of each entry:
+We can use rollups to aggregate aspects of our groupings.
+
+Recall how above we grouped our data entries by color, resulting in two entries
+per color group.  We can use a rollup to do this sort of tallying, e.g., tally
+up the number of entries in each resulting group:
+
+    result = nest()
+      .key((d) -> d.color)              # group by color
+      .rollup((group) -> group.length)  # get number of items in group
+      .map(data)
+
+    isEqual result, { green: 2, red: 2 }
+
+
+Let's define an aggregator function for a [rollup](https://github.com/mbostock/d3/wiki/Arrays#wiki-nest_rollup).  
+
+Here, `sum` takes an array `arr` and an accessor method `acc` and returns the sum of the values returned by the accessor when applied to each item in the array:
 
     sum = (arr, acc) -> 
       x = 0
       x += (if acc then acc(i) else i) for i in arr
       x
 
-    total = (d) -> sum(d, (x) -> x.quantity)
+Our `total` method sums up the `quantity` attribute of each entry:
+
+    total = (group) -> sum(group, (i) -> i.quantity)
 
 Get totals by color:
 
     totals = nest()
       .key((d) -> d.color)    # group by color
       .rollup(total)          # sum entries by quantity
-      .entries(data)
+      .map(data)
 
-    expected = [ {key: 'green', values: 2000}, {key: 'red', values: 6000} ]
-    isEqual totals, expected, 'total by color'
+    isEqual totals, {green: 2000, red: 6000}
 
 Similarly by type:
 
     totals = nest()
       .key((d) -> d.type)     # group by type
       .rollup(total)          # sum entries by quantity
-      .entries(data)
+      .map(data)
 
-    expected = [ {key: 'apple', values: 3000}, {key: 'grape', values: 5000} ]
-    isEqual totals, expected, 'total by type'
+    isEqual totals, {apple: 3000, grape: 5000}
+
+
+Note that rollups don't have to result in a single value.  You're aggregation
+function could return an array or object.
+
+For example, suppose we want *both* the number of entries in each group and the
+total quantity?  Let's create a new rollup function to handle this:
+
+    summarize = (group) -> 
+      entries: group.length
+      quantity: sum(group, (x) -> x.quantity)
+
+    summary = nest()
+      .key((d) -> d.type)     # group by type
+      .rollup(summarize)
+      .map(data)
+
+    expected = 
+      apple:
+        entries: 2
+        quantity: 3000
+      grape:
+        entries: 2
+        quantity: 5000
+
+    isEqual summary, expected
 
 
 ## Comparison with `groupBy` and `countBy`
