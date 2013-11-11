@@ -5,21 +5,24 @@
     assert = require 'assert'
     isEqual = assert.deepEqual
 
-[This clever block](http://bl.ocks.org/mbostock/4062085) uses nest to reshape a table of birthrate data, grouping \[male, female\] totals under year and birthyear:
+[This clever block](http://bl.ocks.org/mbostock/4062085) uses nest to reshape a
+table of birthrate data, grouping \[male, female\] totals under year and birthyear:
 
     data = [ 
       { age: 90, sex: 'M', people: 8649, year: 1870 },
       { age: 90, sex: 'F', people: 13068, year: 1870 } 
     ]
 
-    expected = { '1870': { '1780': [ [ 8649, 13068 ] ] } }
-
     result = nest()
-      .key((d) -> d.year)           # group by year
-      .key((d) -> d.year - d.age)   # group by birthyear
-      .rollup((d) -> d)
-      .rollup((items) -> [i.people for i in items])
+      .key((d) -> d.year)                           # group by year
+      .key((d) -> d.year - d.age)                   # group by birthyear
+      .rollup((items) -> [i.people for i in items]) 
       .map(data)
+
+So, we group by year and birthyear before returning an array of totals for each
+item in the resulting group.
+
+    expected = { '1870': { '1780': [ [ 8649, 13068 ] ] } }
 
     isEqual result, expected
 
