@@ -1,15 +1,15 @@
 # Examples
 
 
-    nest = require '../nest'
+    nest = require 'nest'
     assert = require 'assert'
     isEqual = assert.deepEqual
 
 [This clever block](http://bl.ocks.org/mbostock/4062085) uses nest to reshape a table of birthrate data, grouping \[male, female\] totals under year and birthyear:
 
     data = [ 
-      { age: 90, sex: 1, people: 8649, year: 1870 },
-      { age: 90, sex: 2, people: 13068, year: 1870 } 
+      { age: 90, sex: 'M', people: 8649, year: 1870 },
+      { age: 90, sex: 'F', people: 13068, year: 1870 } 
     ]
 
     expected = { '1870': { '1780': [ [ 8649, 13068 ] ] } }
@@ -22,6 +22,8 @@
       .map(data)
 
     isEqual result, expected
+
+---
 
 Inspired by [this question](http://stackoverflow.com/questions/13379912/javascript-summing-arrays-using-d3-nest), suppose the values we wish to rollup are arrays, such as an array of daily items picked. Let's say that for our rollup, then, we want to sum the *corresponding* values in the array of daily picks for each entry in our final grouping of entries (say, by color). That is, we want an array of daily pick totals for our particular grouping.
 
