@@ -14,9 +14,3 @@ For [smash](https://github.com/mbostock/smash/wiki)-style extraction-and-bundlin
   using the [set](https://github.com/component/set) component as a model.
 
 * Integrate [tests](https://github.com/mbostock/d3/blob/master/test/arrays/nest-test.js) and [examples](http://bl.ocks.org/phoebebright/raw/3176159/).
-
-* Explore overlap and use with crossfilter.
-  * [API](https://github.com/square/crossfilter/wiki/API-Reference)
-  * [Examples](http://bl.ocks.org/phoebebright/raw/3822981/)
-  * [Tutorial](http://eng.wealthfront.com/2012/09/explore-your-multivariate-data-with-crossfilter.html)
-  * [Custom filter functions](https://github.com/square/crossfilter/pull/36)
