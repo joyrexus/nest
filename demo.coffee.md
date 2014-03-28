@@ -218,6 +218,7 @@ Returning to the earlier example, let's group our entries by color and then by q
       quantity: 4000
     ]
 
+
     result = nest()
       .key((d) -> d.color)    # group entries by color
       .key((d) -> d.quantity) # group entries by quantity
@@ -232,7 +233,7 @@ Returning to the earlier example, let's group our entries by color and then by q
       red:
         "2000": [ {type: 'apple', color: 'red', quantity: 2000} ]
         "4000": [ {type: 'grape', color: 'red', quantity: 4000} ]
-
+    
     isEqual result, expected
 
 With a little help from lodash's [groupBy](http://lodash.com/docs#groupBy) and [mapValues](http://lodash.com/docs#mapValues) we can handle this too:
