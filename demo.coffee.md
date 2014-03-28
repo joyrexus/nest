@@ -218,6 +218,7 @@ Returning to the earlier example, let's group our entries by color and then by q
       quantity: 4000
     ]
 
+<!-- -->
 
     result = nest()
       .key((d) -> d.color)    # group entries by color
