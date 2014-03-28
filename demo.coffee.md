@@ -143,11 +143,11 @@ total quantity?  Let's create a new rollup function to handle this:
 
 ## Comparison with `groupBy` and `countBy`
 
-The following demonstrates `nest` equivalents for underscore's [groupBy](http://underscorejs.org/#groupBy) and [countBy](http://underscorejs.org/#countBy)
+The following demonstrates `nest` equivalents for underscore's (or lodash's) [groupBy](http://underscorejs.org/#groupBy) and [countBy](http://underscorejs.org/#countBy)
 
 Note that `nest` supports more than one level of grouping and can also return nested entries that preserve order.
 
-    _ = require 'underscore'
+    _ = require 'lodash'
     isEqual = assert.deepEqual
 
 <!-- -->
@@ -235,15 +235,14 @@ Returning to the earlier example, let's group our entries by color and then by q
 
     isEqual result, expected
 
-With a little work we can handle this with `groupBy` too:
+With a little help from lodash's [groupBy](http://lodash.com/docs#groupBy) and [mapValues](http://lodash.com/docs#mapValues) we can handle this too:
 
-    groupBy = (data, keys) ->
-      return data if not keys.length
-      [first, rest] = [ keys[0], keys.slice(1) ]
-      byFirst = _.groupBy data, first
-      for key of byFirst
-        byFirst[key] = groupBy byFirst[key], rest
-      byFirst
+    nest = (seq, keys) ->
+      return seq unless keys.length
+      [first, rest...] = keys
+      _.mapValues _.groupBy(seq, first), (value) -> nest(value, rest) 
 
-    isEqual result, groupBy(data, ['color', 'quantity'])
+    isEqual result, nest(data, ['color', 'quantity'])
+
+See [this gist](https://gist.github.com/joyrexus/9834587) for more info on this alternative approach to nesting (i.e., multi-level grouping).
 
